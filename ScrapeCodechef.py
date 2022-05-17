@@ -141,7 +141,7 @@ def FindProfile(username: str):
         #     str(list(ContestProblems.keys())) + '\n'
 
     except:
-        description = f"'Username': ''{username}' dosen't exists'" + "}"
+        description = f"'Username': 'invalid username'"
     
     
     description = '{' + description + '}'
