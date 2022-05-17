@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time
 from selenium.webdriver.chrome.options import Options 
+import requests
 
 #To store color code for different stars 
 coderDiv = ["Grey", "Green", "Blue", "Violet", "Yellow", "Orange", "Red"]
@@ -14,18 +15,18 @@ def FindProfile(username: str):
     description = "" 
  
     try:
-        options = Options()
-        options.headless = True
-        browser= webdriver.Chrome(executable_path='C:\chromedriver_win32\chromedriver.exe', chrome_options=options)
-        base_url = "http://www.codechef.com/users/"
-        # username = "arun_adithya"
-        final_url = base_url + username
-        browser.get(final_url)
-        soup = BeautifulSoup(browser.page_source,features="html.parser")
-
+        # options = Options()
+        # options.headless = True
+        # browser= webdriver.Chrome(executable_path='C:\chromedriver_win32\chromedriver.exe', chrome_options=options)
+        # base_url = "http://www.codechef.com/users/"
+        # # username = "arun_adithya"
+        # final_url = base_url + username
+        # browser.get(final_url)
         # soup = BeautifulSoup(browser.page_source,features="html.parser")
-        # website_html = requests.get(url).text
-        # soup = BeautifulSoup(website_html, 'lxml')
+
+        url = "https://www.codechef.com/users/" + username
+        website_html = requests.get(url).text
+        soup = BeautifulSoup(website_html, 'lxml')
 
         ProfileDetails = soup.find('section', class_="user-details")
         moreinfo = ProfileDetails.find_all('li')
@@ -48,26 +49,26 @@ def FindProfile(username: str):
         # currentStars = FindStars(CurrentRatingNumber)
         # CurrentCoderType = coderDiv[currentStars - 1] + " coder"
 
-        HeighestRating = soup.find(
-            'div', class_="rating-header text-center").small.text
-        HeighestRating = HeighestRating.split(' ')[-1][:-1]
-        HeighestRatingNumber = int(HeighestRating)
+        # HeighestRating = soup.find(
+        #     'div', class_="rating-header text-center").small.text
+        # HeighestRating = HeighestRating.split(' ')[-1][:-1]
+        # HeighestRatingNumber = int(HeighestRating)
         # HeighestStars = FindStars(HeighestRatingNumber)
         # HeighestCoderType = coderDiv[HeighestStars - 1] + " coder"
         description += "'Current'" + ":" + f"'{CurrentRatingNumber}',"
 
         # description += f"Current : {CurrentCoderType} {currentStars}star {CurrentRatingNumber} | Heighest : {HeighestCoderType} {HeighestStars}star {HeighestRatingNumber}\n"
 
-        GCRanks = soup.find('div', class_='rating-ranks').ul.find_all('li')
-        GlobalRank = GCRanks[0].text.split('\n')
-        # description += f"{GlobalRank[2].strip()} : {GlobalRank[1].strip()} | "
+        # GCRanks = soup.find('div', class_='rating-ranks').ul.find_all('li')
+        # GlobalRank = GCRanks[0].text.split('\n')
+        # # description += f"{GlobalRank[2].strip()} : {GlobalRank[1].strip()} | "
 
-        CountryRank = GCRanks[1].text.split('\n')
-        # description += f"{CountryRank[2].strip()} : {CountryRank[1].strip()}\n"
+        # CountryRank = GCRanks[1].text.split('\n')
+        # # description += f"{CountryRank[2].strip()} : {CountryRank[1].strip()}\n"
 
-        RankStats = soup.find('div', class_='rank-stats')
-        LastContestInfo = RankStats.find('div', class_='contest-name')
-        ContestName = LastContestInfo.a.text.strip()
+        # RankStats = soup.find('div', class_='rank-stats')
+        # LastContestInfo = RankStats.find('div', class_='contest-name')
+        # # ContestName = LastContestInfo.a.text.strip()
 
         # if ContestName == 'None':
         #     description += "Last Rated Contest : " + ContestName + '\n'
@@ -103,7 +104,7 @@ def FindProfile(username: str):
 
             if(ContestProblems[contestName] >= MaxProblemSolved):
                 MaxProblemSolved = ContestProblems[contestName]
-                MaxProblemSolvedContest = contestName
+                # MaxProblemSolvedContest = contestName
 
             #print(contestName + f"  {ContestProblems[contestName]}")
 
