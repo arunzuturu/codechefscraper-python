@@ -1,4 +1,8 @@
 # CodeChef Scraper
+
+## Looking for Hosting
+The current scraper returns a flask get request with the username bakes as a parameter refer: api.py 
+Once I'm done hosting the scraper, i'll update it with the base url so you can use in your next project
 ## Requirements 🔧
 :small_blue_diamond: make sure you have python installed in your system or install it [here](https://www.python.org/downloads/)<br/>
 :small_blue_diamond: install [pip](https://pip.pypa.io/en/stable/)<br/>
